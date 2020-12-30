@@ -26,6 +26,14 @@ def off():
     buzeer.off()
     db.reference('/smarthouse/led/onefloor').set(0)
 
+def listener(event):
+    data = event.data
+    if data == 1:
+        led.on()
+    else:
+        led.off()
+
+db.reference('/smarthouse/led/onefloor').listen(listener)
 button.when_pressed = on
 button.when_released = off
 
