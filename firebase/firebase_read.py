@@ -7,11 +7,11 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://iotfb-fc0b9.firebaseio.com/'
 })
 
-db.reference('/company').set({
-    'edu':{
-        'name': '樂技數位學習',
-        'age': 18
-    }
-})
-
-print('ok')
+data = db.reference('/company').get()
+print(data)
+data = db.reference('/company/edu').get()
+print(data)
+data = db.reference('/company/edu/age').get()
+print(data)
+data = db.reference('/company/edu/name').get()
+print(data)
