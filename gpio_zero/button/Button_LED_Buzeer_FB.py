@@ -9,7 +9,8 @@ cred = credentials.Certificate("../../firebase/firebase_key.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://iotfb-fc0b9.firebaseio.com/'
 })
-
+# Relay 接法
+# IN1 -> 21, GND -> 負極, VCC -> 5V
 led = LED(21)
 button = Button(20, pull_up=False)
 buzeer = Buzzer(16)
