@@ -2,6 +2,7 @@
 '''
 安裝 RPLCD 套件
 pip3 install RPLCD
+sudo pip3 install RPLCD
 
 (可以不用裝)安裝 smbus2 套件 (支援 I2C 功能)
 pip3 install smbus2
