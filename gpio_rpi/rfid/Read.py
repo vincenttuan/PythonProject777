@@ -1,4 +1,7 @@
 # https://pypi.org/project/mfrc522/
+# 安裝 rfid
+# pip3 install mfrc522
+
 from time import sleep
 import sys
 from RPi import GPIO
