@@ -1,3 +1,5 @@
+# https://www.raspberrypi-spy.co.uk/2018/02/basic-servo-use-with-the-raspberry-pi/
+
 from gpiozero import Servo
 from time import sleep
 
