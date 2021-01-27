@@ -13,6 +13,8 @@ try:
         text = input("Please input message: ")
         print('Now place your tag to write.')
         reader.write(text)
+        # https://gpiozero.readthedocs.io/en/stable/api_output.html
+        # beep(on_time=1, off_time=1, n=None, background=True)
         buzzer.beep(0.1, 0.1, 1)
         print('Written OK')
         sleep(1)
