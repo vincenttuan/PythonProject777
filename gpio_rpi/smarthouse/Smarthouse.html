@@ -56,15 +56,11 @@
       		}
 
       		function openTheDoor() {
-				database.ref('/smarthouse/door/servo1').once('value',e=>{
-				    database.ref('/smarthouse/door/servo1').set(1);
-				});
+				database.ref('/smarthouse/door/servo1').set(1);
 			}
 
 			function closeTheDoor() {
-				database.ref('/smarthouse/door/servo1').once('value',e=>{
-				    database.ref('/smarthouse/door/servo1').set(0);
-				});
+				database.ref('/smarthouse/door/servo1').set(0);
 			}
 		</script>
 	</head>

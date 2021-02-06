@@ -107,6 +107,18 @@ def listener_servo(event):
         close()
     print(data)
 
+#監聽 FB 上的 /smarthouse/door/servo1
+def listener_door_servo1(event):
+    global servo
+    servo = servo1
+    data = event.data
+    print(data)
+    if data == 1:
+        open()
+    else:
+        close()
+
+
 #按鈕按下
 def button_pressed():
     pass
@@ -135,9 +147,10 @@ if __name__ == '__main__':
     # 執行該子執行緒
     t.start()
 
-    # 監聽 FB
+    # 註冊監聽 FB
     db.reference('/smarthouse/led/onefloor').listen(listener_led)
     db.reference('/smarthouse/servo/12345678').listen(listener_servo)
+    db.reference('/smarthouse/door/servo1').listen(listener_door_servo1)
 
     # RFID
     try:
