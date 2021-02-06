@@ -54,6 +54,18 @@
         		var audio = document.getElementById("myaudio");
         		audio.play();
       		}
+
+      		function openTheDoor() {
+				database.ref('/smarthouse/door/servo1').once('value',e=>{
+				    database.ref('/smarthouse/door/servo1').set(1);
+				});
+			}
+
+			function closeTheDoor() {
+				database.ref('/smarthouse/door/servo1').once('value',e=>{
+				    database.ref('/smarthouse/door/servo1').set(0);
+				});
+			}
 		</script>
 	</head>
 	<body style="padding: 20px">
@@ -62,8 +74,8 @@
 			Firebase 教學 - RealTime Database 安裝與使用
 		</a><p>
 		-->
-		<table>
-			<td>
+		<table border="1">
+			<td valign="top">
 				<table>
 					<tr>
 						<td>
@@ -81,8 +93,15 @@
 					</tr>
 				</table>
 			</td>
-			<td>
-				<iframe src="http://192.168.137.114:8081/"></iframe>
+			<td valign="top">
+				<iframe src="http://192.168.137.114:8081/" width="320" height="240"></iframe>
+				<p></p>
+				<button onclick="openTheDoor()"
+						type="button"
+						class="pure-button pure-button-primary">車庫開門</button>
+				<button onclick="closeTheDoor()"
+						type="button"
+						class="pure-button pure-button-primary">車庫關門</button>
 			</td>
 		</table>
 
