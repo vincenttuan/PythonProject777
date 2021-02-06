@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" >
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 		<script>
@@ -18,13 +19,27 @@
     			}
 			});
 
+			// 監聽 '/smarthouse/dht'
 			database.ref('/smarthouse/dht').on('value', e => {
 				var data = e.val();
 				document.getElementById('dht_div').innerHTML = '溫度 : ' + data.temp + '°C<br>濕度 : ' + data.humi + '%';
 			});
 
-
-
+			// 監聽 '/smarthouse/servo'
+			database.ref('/smarthouse/servo').on('value', e => {
+				var data = e.val();
+				var html = '<table class="pure-table pure-table-bordered">';
+				html += '<thead><tr><th>ID</th><th>$</th></tr></thead>';
+				html += '<tbody>';
+				for(var id in data) {
+					html += '<tr>';
+				  	html += "<td>" +id + "</td><td align='right'>" + data[id] + "</td>"
+					html += '</tr>';
+				}
+				html += '</tbody>';
+				html += '</table>';
+				document.getElementById('servo_div').innerHTML = html;
+			});
 
 			function turnOn() {
 				navigator.vibrate(500);
@@ -41,7 +56,7 @@
       		}
 		</script>
 	</head>
-	<body>
+	<body style="padding: 20px">
 		<!--
 		<a href='https://www.oxxostudio.tw/articles/201904/firebase-realtime-database-start.html'>
 			Firebase 教學 - RealTime Database 安裝與使用
@@ -55,6 +70,11 @@
 				</td>
 				<td>
 					<div id="dht_div"></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div id="servo_div"></div>
 				</td>
 			</tr>
 		</table>
