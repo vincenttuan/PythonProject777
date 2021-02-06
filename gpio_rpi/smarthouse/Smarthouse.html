@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+		<script>
+			firebase.initializeApp({
+  				databaseURL: "https://iotfb-fc0b9.firebaseio.com/"
+			});
+
+			const database = firebase.database();
+
+			database.ref('/smarthouse/led/onefloor').on('value',e => {
+    			if(e.val() == 1) {
+    				document.getElementById('light').style.filter = "grayscale(0)";
+    			} else {
+    				document.getElementById('light').style.filter = "grayscale(100%)";
+    			}
+			});
+
+
+			function turnOn() {
+				navigator.vibrate(500);
+				play();
+				database.ref('/smarthouse/led/onefloor').once('value',e=>{
+				    var data = e.val()==1?0:1;
+				    database.ref('/smarthouse/led/onefloor').set(data);
+				});
+
+			}
+			function play() {
+        		var audio = document.getElementById("myaudio");
+        		audio.play();
+      		}
+		</script>
+	</head>
+	<body>
+		<!--
+		<a href='https://www.oxxostudio.tw/articles/201904/firebase-realtime-database-start.html'>
+			Firebase 教學 - RealTime Database 安裝與使用
+		</a><p>
+		-->
+		<table>
+			<tr>
+				<td>
+					<img id="light" src="https://findicons.com/files/icons/1035/human_o2/128/dialog_information.png" onclick="turnOn()" height="100%">
+					<audio id="myaudio" src="http://soundbible.com/grab.php?id=1705&type=wav"></audio>
+				</td>
+
+			</tr>
+		</table>
+
+
+	</body>
+</html>
