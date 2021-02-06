@@ -97,6 +97,9 @@ def listener_led(event):
 
 #監聽 FB 上的 /smarthouse/servo/12345678
 def listener_servo(event):
+    if servo == 0:
+        return 0
+
     data = event.data
     if data == 1:
         open()
