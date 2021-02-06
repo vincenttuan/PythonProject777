@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 		<script>
 			firebase.initializeApp({
@@ -8,6 +9,7 @@
 
 			const database = firebase.database();
 
+			// 監聽 '/smarthouse/led/onefloor'
 			database.ref('/smarthouse/led/onefloor').on('value',e => {
     			if(e.val() == 1) {
     				document.getElementById('light').style.filter = "grayscale(0)";
@@ -15,6 +17,13 @@
     				document.getElementById('light').style.filter = "grayscale(100%)";
     			}
 			});
+
+			database.ref('/smarthouse/dht').on('value', e => {
+				var data = e.val();
+				document.getElementById('dht_div').innerHTML = '溫度 : ' + data.temp + '°C<br>濕度 : ' + data.humi + '%';
+			});
+
+
 
 
 			function turnOn() {
@@ -44,7 +53,9 @@
 					<img id="light" src="https://findicons.com/files/icons/1035/human_o2/128/dialog_information.png" onclick="turnOn()" height="100%">
 					<audio id="myaudio" src="http://soundbible.com/grab.php?id=1705&type=wav"></audio>
 				</td>
-
+				<td>
+					<div id="dht_div"></div>
+				</td>
 			</tr>
 		</table>
 
