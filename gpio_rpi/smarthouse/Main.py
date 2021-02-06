@@ -22,11 +22,13 @@ GPIO.setmode(GPIO.BCM)
 GPIO.cleanup()
 
 # Servo 設定要先寫
-myGPIO = 19
 myCorrection = 0
 maxPW = (2.0 + myCorrection) / 1000
 minPW = (1.0 - myCorrection) / 1000
-servo = Servo(myGPIO, min_pulse_width=minPW, max_pulse_width=maxPW)
+servo1 = Servo(19, min_pulse_width=minPW, max_pulse_width=maxPW)
+servo2 = Servo(13, min_pulse_width=minPW, max_pulse_width=maxPW)
+servos = {631257378948: servo1, 6141524804: servo2}
+servo = 0
 
 # Button
 button = Button(20, pull_up=False)
@@ -119,6 +121,8 @@ def thread_job():
 
 #主程式
 if __name__ == '__main__':
+    servo1.value = 1.0
+    servo2.value = 1.0
 
     button.when_pressed = button_pressed
     button.when_released = button_released
@@ -138,6 +142,7 @@ if __name__ == '__main__':
         while True:
             print("Hold a tag near the reader")
             id, text = reader.read()
+            servo = servos[id]  # 根據 卡片 id 取得 servo
             go = int(text) >= 50
             if go:
                 fee = 50
